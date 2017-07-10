@@ -1,0 +1,18 @@
+{
+  "name": "test/doctrine_test",
+  "description": "description_text",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "Entity\\" : "src/"
+    }
+  },
+  "require": {
+    "doctrine/orm": "^2.5",
+    "symfony/yaml": "^3.3"
+  },
+  "scripts": {
+    "refresh": "composer dump-autoload --optimize"
+  }
+}
