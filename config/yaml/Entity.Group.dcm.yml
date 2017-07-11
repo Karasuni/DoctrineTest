@@ -1,4 +1,4 @@
-Group:
+Entity\Group:
   type: entity
   table: groups
   id:
@@ -8,7 +8,8 @@ Group:
         strategy: AUTO
   fields:
     name:
-      type: varchar
+      type: string
       length: 32
     description:
       type: text
+      nullable: true

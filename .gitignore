@@ -5,3 +5,5 @@
 # Composer
 vendor/
 composer.phar
+
+/config/database-secret.json

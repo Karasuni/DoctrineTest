@@ -1,28 +1,29 @@
 <?php
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . "/../vendor/autoload.php";
 
-# http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/configuration.html#obtaining-an-entitymanager
-# Alternatively use YAML
 function GetEntityManager()
 {
-    $paths = array(__DIR__ . '/../config/yaml');
+
     $isDevMode = true;
+    $config = Setup::createYAMLMetadataConfiguration(array(__DIR__ . "/../config/yaml"), $isDevMode);
+
+    // TODO Use YML instead?
+    $file_json = json_decode(file_get_contents(__DIR__ . '/../config/database-secret.json', true), true);
 
     // the connection configuration
     $dbParams = array(
-        'driver'   => 'pdo_mysql',
-        'user'     => '',
-        'password' => '',
-        'dbname'   => '',
-        // schema?
+        'driver'   => $file_json['driver'],
+        'host'     => $file_json['host'],
+        'dbname'   => $file_json['dbname'],
+        'user'     => $file_json['user'],
+        'password' => $file_json['password']
     );
 
-    $config = Setup::createYAMLMetadataConfiguration($paths, $isDevMode);
-    $entityManager = EntityManager::create($dbParams, $config);
+    // obtaining the entity manager
+    $entityManager = \Doctrine\ORM\EntityManager::create($dbParams, $config);
 
     return $entityManager;
 }
